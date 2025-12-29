@@ -1,0 +1,7 @@
+torch
+transformers[sentencepiece]
+datasets
+evaluate
+rouge_score
+pyyaml
+accelerate
