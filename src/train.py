@@ -5,8 +5,8 @@ import torch
 import numpy as np
 import random
 
-from data_loader import SummarizationDataModule
-from model import SummarizationTrainer
+from .data_loader import SummarizationDataModule
+from .model import SummarizationTrainer
 
 def setup_logging(config):
     logging.basicConfig(

@@ -80,6 +80,8 @@ def calculate_metrics(predictions, references, logger):
 def show_examples(dataset, predictions, references, config, logger, num_examples=5):
     data_config = config['data']
     logger.info("\n--- Примеры генерации ---")
+
+    num_examples = min(num_examples, len(dataset))
     
     df = pd.DataFrame({
         'Исходный текст': [ex[data_config['text_column']] for ex in dataset.select(range(num_examples))],
