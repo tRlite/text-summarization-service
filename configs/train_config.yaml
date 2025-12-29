@@ -1,0 +1,32 @@
+project_name: "TextSummarization"
+random_seed: 42
+
+data:
+  dataset_name: "IlyaGusev/gazeta"
+  text_column: "text"
+  summary_column: "summary"
+  train_split: "train[:10%]" 
+  test_split: "test[:20%]"   
+  max_source_length: 512    
+  max_target_length: 128
+
+model:
+  name: "google/mt5-small"
+  
+
+training:
+  output_dir: "./results"
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
+  learning_rate: 0.0003
+  weight_decay: 0.01
+  eval_strategy: "epoch"
+  save_strategy: "epoch"
+  load_best_model_at_end: True
+  predict_with_generate: True
+  report_to: "none"
+
+logging:
+  log_file: "training.log"
+  level: "INFO"

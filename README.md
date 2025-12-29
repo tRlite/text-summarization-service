@@ -58,3 +58,20 @@
 - ROUGE-L: ≥ 0.3
 - Качественная оценка: Доля сгенерированных саммари, которые являются связными и не содержат "галлюцинаций", должна быть ≥ 90% по результатам ручной проверки на 100 примерах.
 
+
+## Запуск обучения /
+pip install -r requirements.txt
+Собираем конфиг обучения пример в configs/train_config.yaml
+Запуск обучения 
+!python src/train.py configs/train_config.yaml
+
+Результаты в папке с результатами из конфига 
+
+Запуск валидации 
+С базовой моделью (без дообучения)
+!python run_evaluation.py --config_path ../configs/train_config.yaml
+
+С дообученной модельй
+!python run_evaluation.py --config_path ../configs/train_config.yaml --model_path $PATH_TO_CKPT
+
+На выходе метрики и примеры генераций
