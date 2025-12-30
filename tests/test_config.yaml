@@ -20,7 +20,7 @@ training:
   per_device_eval_batch_size: 1
   learning_rate: 0.0003
   weight_decay: 0.01
-  evaluation_strategy: "no"
+  #evaluation_strategy: "no"
   save_strategy: "epoch"
   load_best_model_at_end: false
   predict_with_generate: true
