@@ -5,3 +5,4 @@ evaluate
 rouge_score
 pyyaml
 accelerate
+pytest
