@@ -59,19 +59,36 @@
 - Качественная оценка: Доля сгенерированных саммари, которые являются связными и не содержат "галлюцинаций", должна быть ≥ 90% по результатам ручной проверки на 100 примерах.
 
 
-## Запуск обучения /
-pip install -r requirements.txt
+## Запуск обучения
+`pip install -r requirements.txt`
+
 Собираем конфиг обучения пример в configs/train_config.yaml
 Запуск обучения 
-!python src/train.py configs/train_config.yaml
+
+`python src/train.py configs/train_config.yaml`
 
 Результаты в папке с результатами из конфига 
 
-Запуск валидации 
-С базовой моделью (без дообучения)
-!python run_evaluation.py --config_path ../configs/train_config.yaml
+Запуск валидации
 
-С дообученной модельй
-!python run_evaluation.py --config_path ../configs/train_config.yaml --model_path $PATH_TO_CKPT
+С базовой моделью (без дообучения)
+
+`python run_evaluation.py --config_path ../configs/train_config.yaml`
+
+С дообученной моделью
+
+`python run_evaluation.py --config_path ../configs/train_config.yaml --model_path $PATH_TO_CKPT`
 
 На выходе метрики и примеры генераций
+
+## Воспроизведение результатов
+
+Загрузка данных и моделей
+
+`dvc pull`
+
+Эта команда свяжется с удаленным хранилищем на Google Drive (в .dvc/config есть аддрес)
+
+Для запуска всего пайплайна (подготовка данных, обучение, оценка) с нуля на основе текущего кода и данных:
+
+`dvc repro`

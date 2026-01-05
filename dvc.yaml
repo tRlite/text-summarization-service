@@ -4,8 +4,7 @@ stages:
     deps:
       - data/raw
     outs:
-      - data/prepared:
-          no_cache: true
+      - data/prepared
 
   train:
     cmd: python src/run_training.py configs/train_config.yaml
@@ -23,10 +22,9 @@ stages:
       - results
 
   evaluate:
-    cmd: python src/run_evaluation.py --config_path configs/val_config.yaml --model_path results/checkpoint-XYZ 
+    cmd: python src/run_evaluation.py --config_path configs/val_config.yaml --model_path results
     deps:
       - src/run_evaluation.py
       - results
     metrics:
-      - evaluation_metrics.json:
-          no_cache: true
+      - evaluation_metrics.json
