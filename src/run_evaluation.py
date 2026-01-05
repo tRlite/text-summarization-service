@@ -7,6 +7,7 @@ from tqdm import tqdm
 from datasets import load_dataset
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 import evaluate
+import json
 
 def setup_logging(config):
     logging.basicConfig(
@@ -113,7 +114,13 @@ def main(config_path, model_path=None):
     eval_dataset = load_evaluation_data(config, logger)
     
     predictions, references = generate_summaries(eval_dataset, model, tokenizer, config, device, logger)
-    calculate_metrics(predictions, references, logger)
+    metrics = calculate_metrics(predictions, references, logger)
+
+    metrics_path = config.get("evaluate", {}).get("metrics_file", "evaluation_metrics.json")
+    with open(metrics_path, "w") as f:
+        json.dump(metrics, f, indent=4)
+    logger.info(f"Метрики сохранены в {metrics_path}")
+
     show_examples(eval_dataset, predictions, references, config, logger)
 
 

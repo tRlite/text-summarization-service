@@ -1,0 +1,32 @@
+stages:
+  prepare:
+    cmd: mkdir -p data/prepared && cp -r data/raw/* data/prepared
+    deps:
+      - data/raw
+    outs:
+      - data/prepared:
+          no_cache: true
+
+  train:
+    cmd: python src/run_training.py configs/train_config.yaml
+    deps:
+      - src/run_training.py
+      - src/model.py
+      - src/data_loader.py
+      - configs/train_config.yaml
+      - data/prepared
+    params:
+      - training.num_train_epochs
+      - training.learning_rate
+      - model.name
+    outs:
+      - results
+
+  evaluate:
+    cmd: python src/run_evaluation.py --config_path configs/val_config.yaml --model_path results/checkpoint-XYZ 
+    deps:
+      - src/run_evaluation.py
+      - results
+    metrics:
+      - evaluation_metrics.json:
+          no_cache: true

@@ -22,6 +22,9 @@ training:
   predict_with_generate: True
   report_to: "none"
 
+evaluate:
+  metrics_file: evaluation_metrics.json
+
 logging:
   log_file: "val.log"
   level: "INFO"
