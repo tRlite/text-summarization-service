@@ -7,24 +7,25 @@ stages:
       - data/prepared
 
   train:
-    cmd: python src/run_training.py configs/train_config.yaml
+    cmd: python -m src.train configs/train_config.yaml
     deps:
-      - src/run_training.py
+      - src/train.py
       - src/model.py
       - src/data_loader.py
       - configs/train_config.yaml
       - data/prepared
     params:
-      - training.num_train_epochs
-      - training.learning_rate
-      - model.name
+      - configs/train_config.yaml:
+        - training.num_train_epochs
+        - training.learning_rate
+        - model.name
     outs:
-      - results
+      - results_
 
   evaluate:
-    cmd: python src/run_evaluation.py --config_path configs/val_config.yaml --model_path results
+    cmd: python src/run_evaluation.py --config_path configs/val_config.yaml --model_path results_
     deps:
       - src/run_evaluation.py
-      - results
+      - results_
     metrics:
       - evaluation_metrics.json
