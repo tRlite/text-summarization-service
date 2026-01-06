@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/gl1ter/text_sum/text-summarization-service/mlruns/178503794130580535/3c5cdb666cea4799a2bf90a77df6155d/artifacts
+end_time: 1767716554435
+entry_point_name: ''
+experiment_id: '178503794130580535'
+lifecycle_stage: active
+run_id: 3c5cdb666cea4799a2bf90a77df6155d
+run_name: righteous-bear-127
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1767716427139
+status: 3
+tags: []
+user_id: gl1ter

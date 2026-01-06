@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/gl1ter/text_sum/text-summarization-service/mlruns/178503794130580535/364d91ac74ff4231843f8985b4ff0760/artifacts
+end_time: 1767633953354
+entry_point_name: ''
+experiment_id: '178503794130580535'
+lifecycle_stage: active
+run_id: 364d91ac74ff4231843f8985b4ff0760
+run_name: vaunted-crow-531
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1767633878613
+status: 3
+tags: []
+user_id: gl1ter

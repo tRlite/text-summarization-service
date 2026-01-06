@@ -9,7 +9,15 @@ from transformers import (
     Seq2SeqTrainer
 )
 
+import mlflow
+from transformers import TrainerCallback
+
 logger = logging.getLogger(__name__)
+
+class MLflowMetricsCallback(TrainerCallback):
+    def on_evaluate(self, args, state, control, metrics=None, **kwargs):
+        if metrics is not None:
+            mlflow.log_metrics(metrics, step=state.global_step)
 
 class SummarizationTrainer:
     def __init__(self, config):
@@ -22,6 +30,11 @@ class SummarizationTrainer:
         logger.info(f"Загрузка модели и токенизатора: {self.model_config['name']}")
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_config['name'])
         self.model = AutoModelForSeq2SeqLM.from_pretrained(self.model_config['name'])
+
+    def _load_tokenizer_only(self):
+        logger.info(f"Загрузка токенизатора: {self.model_config['name']}")
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_config['name'])
+        return self.tokenizer
 
     def _compute_metrics(self, eval_pred):
         predictions, labels = eval_pred
@@ -55,6 +68,7 @@ class SummarizationTrainer:
             tokenizer=self.tokenizer,
             data_collator=data_collator,
             compute_metrics=self._compute_metrics,
+            callbacks=[MLflowMetricsCallback()]
         )
 
         logger.info("Начало обучения модели...")
