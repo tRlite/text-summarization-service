@@ -1,0 +1,69 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: mkdir -p data/prepared && cp -r data/raw/* data/prepared
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: 69b022f3cfea7c6d19e7f068361ba401.dir
+      size: 663764243
+      nfiles: 11
+    outs:
+    - path: data/prepared
+      hash: md5
+      md5: 69b022f3cfea7c6d19e7f068361ba401.dir
+      size: 663764243
+      nfiles: 11
+  train:
+    cmd: python3.9 -m src.train configs/train_config.yaml
+    deps:
+    - path: configs/train_config.yaml
+      hash: md5
+      md5: 71181c231e5cd48477ba82b67423b239
+      size: 644
+    - path: data/prepared
+      hash: md5
+      md5: 69b022f3cfea7c6d19e7f068361ba401.dir
+      size: 663764243
+      nfiles: 11
+    - path: src/data_loader.py
+      hash: md5
+      md5: b3d851b057c362dd51659ecb4e627227
+      size: 1814
+    - path: src/model.py
+      hash: md5
+      md5: 7e84473e678997fd7d4fb7253a90d040
+      size: 2316
+    - path: src/train.py
+      hash: md5
+      md5: bb99902f57ba4e1b1068b1345aa69fd0
+      size: 1709
+    params:
+      configs/train_config.yaml:
+        model.name: google/mt5-small
+        training.learning_rate: 0.0003
+        training.num_train_epochs: 3
+    outs:
+    - path: results
+      hash: md5
+      md5: 6ce2036e58c6d450ae04dd69d5e1ca12.dir
+      size: 12090417083
+      nfiles: 44
+  evaluate:
+    cmd: python3.9 src/run_evaluation.py --config_path configs/val_config.yaml 
+      --model_path results
+    deps:
+    - path: results
+      hash: md5
+      md5: 6ce2036e58c6d450ae04dd69d5e1ca12.dir
+      size: 12090417083
+      nfiles: 44
+    - path: src/run_evaluation.py
+      hash: md5
+      md5: 6038469df0bbe6c07a5ec2570c89e497
+      size: 5084
+    outs:
+    - path: evaluation_metrics.json
+      hash: md5
+      md5: 41503ce346596479c63517cb37db7431
+      size: 148

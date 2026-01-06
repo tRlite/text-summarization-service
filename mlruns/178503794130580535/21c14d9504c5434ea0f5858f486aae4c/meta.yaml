@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/gl1ter/text_sum/text-summarization-service/mlruns/178503794130580535/21c14d9504c5434ea0f5858f486aae4c/artifacts
+end_time: 1767633557495
+entry_point_name: ''
+experiment_id: '178503794130580535'
+lifecycle_stage: active
+run_id: 21c14d9504c5434ea0f5858f486aae4c
+run_name: spiffy-whale-842
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1767633476897
+status: 3
+tags: []
+user_id: gl1ter

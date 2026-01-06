@@ -8,3 +8,5 @@ accelerate
 pytest
 pytest-mock
 pytest-cov
+dvc[gdrive]
+mlflow

@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/gl1ter/text_sum/text-summarization-service/mlruns/178503794130580535/4ac3a8fcbb6f41dc979ebf30f5908508/artifacts
+end_time: 1767634334739
+entry_point_name: ''
+experiment_id: '178503794130580535'
+lifecycle_stage: active
+run_id: 4ac3a8fcbb6f41dc979ebf30f5908508
+run_name: popular-stoat-310
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1767634203377
+status: 3
+tags: []
+user_id: gl1ter

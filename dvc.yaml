@@ -1,0 +1,31 @@
+stages:
+  prepare:
+    cmd: mkdir -p data/prepared && cp -r data/raw/* data/prepared
+    deps:
+      - data/raw
+    outs:
+      - data/prepared
+
+  train:
+    cmd: python -m src.train configs/train_config.yaml
+    deps:
+      - src/train.py
+      - src/model.py
+      - src/data_loader.py
+      - configs/train_config.yaml
+      - data/prepared
+    params:
+      - configs/train_config.yaml:
+        - training.num_train_epochs
+        - training.learning_rate
+        - model.name
+    outs:
+      - results_
+
+  evaluate:
+    cmd: python src/run_evaluation.py --config_path configs/val_config.yaml --model_path results_
+    deps:
+      - src/run_evaluation.py
+      - results_
+    metrics:
+      - evaluation_metrics.json
