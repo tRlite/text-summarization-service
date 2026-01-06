@@ -9,4 +9,4 @@ pytest
 pytest-mock
 pytest-cov
 dvc[gdrive]
-mlflow[transformers]
+mlflow[transformers]>=2.0.0
