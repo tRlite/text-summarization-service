@@ -1,0 +1,13 @@
+.git/
+.github/
+.dvc/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+mlruns/
+test_results/
+data/
+*.log
+*.csv
