@@ -1,0 +1,12 @@
+FROM pytorch/torchserve:latest-cpu
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt --no-deps torch torchvision
+
+WORKDIR /home/model-server
+
+COPY ./model_store/summarizer.mar /home/model-server/model-store/
+
+CMD ["torchserve", "--start", "--foreground", "--model-store", "model-store", "--models", "all", "--disable-token-auth"]

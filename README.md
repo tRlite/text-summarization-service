@@ -134,3 +134,43 @@
   --output_path /app/output/predictions.csv`
 
 После выполнения команды в вашей локальной папке output появится файл predictions.csv с оригинальными текстами и их саммари
+
+
+## Развертывание как онлайн-сервис (TorchServe)
+
+Модель упакована для развертывания в продакшене как REST API сервис с помощью TorchServe.
+
+### 1. Подготовка архива модели (.mar)
+
+`CHECKPOINT_DIR=./results__
+
+torch-model-archiver \
+  --model-name summarizer \
+  --version 1.0 \
+  --serialized-file $CHECKPOINT_DIR/model.safetensors \
+  --handler ./torchserve/summarizer_handler.py \
+  --extra-files "$CHECKPOINT_DIR/config.json,$CHECKPOINT_DIR/tokenizer.json,$CHECKPOINT_DIR/spiece.model,$CHECKPOINT_DIR/tokenizer_config.json,$CHECKPOINT_DIR/special_tokens_map.json" \
+  --export-path ./model_store \
+  --force`
+
+### 2. Сборка и запуск Docker-контейнера
+
+`docker build -f Dockerfile.torchserve -t summarizer-serve:v1 .`
+`docker run --rm -d -p 8080:8080 -p 8081:8081 --name my-summarizer-container summarizer-serve:v1`
+
+### 3. Отправка запросов
+
+Проверка загруженных моделей (нужно дождаться пока модель загрузится):
+
+`curl http://localhost:8081/models`
+
+Ожидаемый ответ: JSON с вашей моделью summarizer.
+
+Формат входных данных: JSON с ключом text.
+
+`{
+  "text": "Ваш длинный текст для суммаризации находится здесь..."
+}`
+
+Запрос на суммаризацию:
+`curl -X POST http://localhost:8080/predictions/summarizer -T sample_input.json`
