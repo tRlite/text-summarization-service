@@ -1,2 +1,6 @@
 /results
 /evaluation_metrics.json
+/results_
+/model_store/
+/torchserve/prepared_artifacts/
+/torchserve/temp_for_archive/
